@@ -13,15 +13,15 @@
             max-width: 800px;
             margin: 0 auto;
             box-sizing: border-box;
-            background: #f5f7fa url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zM22.343 0L13.857 8.485 15.272 9.9l7.9-7.9h-.83zm5.657 0L19.514 8.485 20.93 9.9l8.485-8.485h-1.415zM32.372 0L26.1 6.272 27.515 7.687 33.787 1.415 32.37 0z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background: #f5f7fa url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zM22.343 0L13.857 8.485 15.272 9.9l7.9-7.9h-.83zm5.657 0L19.514 8.485 20.93 9.9l8.485-8.485h-1.415zM32.372 0L26.1 6.272 27.515 7.687 33.787 1.415 32.37 0z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
         .section {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             padding: 25px;
             margin-bottom: 30px;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(10px);
         }
         .matrix-table {
@@ -37,12 +37,15 @@
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         .matrix-table td, .matrix-table th {
             border: none;
             padding: 8px;
             text-align: left;
+        }
+        .matrix-table th {
+            text-align: center;
         }
         .matrix-table td:first-child {
             font-weight: bold;
@@ -51,19 +54,19 @@
         }
         .radio-button, .checkbox-group label {
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
         }
         .radio-button:hover, .checkbox-group label:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .question {
             background: #fff;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         .question p {
             font-size: 16px;
@@ -88,15 +91,25 @@
             .question p {
                 font-size: 15px;
             }
-            .header h1 {
-                font-size: 22px;
-            }
-            .header p {
-                font-size: 14px;
-            }
-            .time-notice {
-                font-size: 13px;
-            }
+        }
+        /* 新增样式：表头居中并添加紫蓝色底色 */
+        .header {
+            text-align: center;
+            background-color: #4a5ab9; /* 紫蓝色背景 */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .time-notice {
+            text-align: center;
+            background-color: #5b67c7; /* 紫蓝色背景 */
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -141,13 +154,13 @@
         
         <div class="question">
             <p>2. 您日常需要处理的核心任务类型是？（多选）</p>
-            <!-- 基础信息部分 -->
             <div class="checkbox-group">
                 <label><input type="checkbox" name="q2" value="search" required> 信息检索</label>
                 <label><input type="checkbox" name="q2" value="content" required> 内容创作</label>
                 <label><input type="checkbox" name="q2" value="automation" required> 自动化流程</label>
                 <label><input type="checkbox" name="q2" value="programming" required> 编程开发</label>
                 <label><input type="checkbox" name="q2" value="document" required> 办公提效</label>
+                <label><input type="checkbox" name="q2" value="other" required> 其他</label>
             </div>
         </div>
     
