@@ -1,0 +1,131 @@
+/* 基础样式 */
+.section {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+/* 单选按钮组样式 */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.radio-button {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.radio-button:hover {
+    background: #e9ecef;
+}
+
+.radio-button.selected {
+    background: #3e32ad;
+    color: white;
+    border-color: #3e32ad;
+}
+
+.radio-button input[type="radio"] {
+    display: none;
+}
+
+/* 复选框组样式 */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* 矩阵题样式 */
+.matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.matrix-table td, .matrix-table th {
+    padding: 8px;
+    text-align: center;
+}
+
+.matrix-table th {
+    background-color: #f8f9fa;
+}
+
+/* 提交按钮样式 */
+.submit-btn {
+    background: linear-gradient(135deg, #4a5ab9 0%, #5b67c7 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(91, 103, 199, 0.3);
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(91, 103, 199, 0.4);
+    background: linear-gradient(135deg, #5b67c7 0%, #4a5ab9 100%);
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(91, 103, 199, 0.3);
+}
+
+/* 结果展示样式 */
+.score-summary {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.total-score {
+    font-size: 48px;
+    color: #3e32ad;
+    font-weight: bold;
+}
+
+.radar-chart {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.category-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.level-assessment {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}

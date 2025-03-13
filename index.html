@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具使用能力测评</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            background: #f5f7fa url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zM22.343 0L13.857 8.485 15.272 9.9l7.9-7.9h-.83zm5.657 0L19.514 8.485 20.93 9.9l8.485-8.485h-1.415zM32.372 0L26.1 6.272 27.515 7.687 33.787 1.415 32.37 0z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .matrix-table {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .matrix-table tr {
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .matrix-table td, .matrix-table th {
+            border: none;
+            padding: 8px;
+            text-align: left;
+        }
+        .matrix-table td:first-child {
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .radio-button, .checkbox-group label {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+        .radio-button:hover, .checkbox-group label:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .question {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .question p {
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .section {
+                padding: 15px;
+            }
+            .matrix-table tr {
+                padding: 10px;
+            }
+            .radio-button, .checkbox-group label {
+                padding: 12px;
+                font-size: 14px;
+            }
+            .question p {
+                font-size: 15px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .header p {
+                font-size: 14px;
+            }
+            .time-notice {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AI工具使用情况测评</h1>
+        <p>全面评估您的AI工具应用能力</p>
+    </div>
+
+    <div class="time-notice">
+        <p>📝 提示：完成本测评大约需要5-8分钟，请确保在开始后不要中断作答，以获得最准确的评估结果。</p>
+    </div>
+
+    <!-- 基础信息部分 -->
+    <div class="section">
+        <h2>第一部分 基础信息</h2>
+        <div class="question">
+            <p>1. 您的职业是？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q1" value="student" required>
+                    <span>学生</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q1" value="worker" required>
+                    <span>职场白领</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q1" value="developer" required>
+                    <span>程序员/开发者</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q1" value="designer" required>
+                    <span>设计师</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q1" value="other" required>
+                    <span>其他</span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>2. 您日常需要处理的核心任务类型是？（多选）</p>
+            <!-- 基础信息部分 -->
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="q2" value="search" required> 信息检索</label>
+                <label><input type="checkbox" name="q2" value="content" required> 内容创作</label>
+                <label><input type="checkbox" name="q2" value="automation" required> 自动化流程</label>
+                <label><input type="checkbox" name="q2" value="programming" required> 编程开发</label>
+                <label><input type="checkbox" name="q2" value="document" required> 办公提效</label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>3. 您使用AI工具的整体经验为？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q3" value="0" required>
+                    <span>从未接触</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q3" value="1" required>
+                    <span>偶尔尝试（＜1次/周）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q3" value="2" required>
+                    <span>经常使用（1-3次/周）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q3" value="3" required>
+                    <span>高频依赖（每天使用）</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分项测评部分 -->
+    <div class="section">
+        <h2>第二部分 分项测评</h2>
+        <!-- 交互型AI -->
+        <div class="question">
+            <p>4. 您使用AI搜索工具（如智能整合多来源信息）的频率是？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q4" value="0" required>
+                    <span>从不</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q4" value="1" required>
+                    <span>偶尔（＜1次/周）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q4" value="2" required>
+                    <span>经常（1-3次/周）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q4" value="3" required>
+                    <span>每天使用</span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>5. 您是否用AI聊天工具处理过需要多步骤推理的任务？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q5" value="0" required>
+                    <span>从未尝试</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q5" value="1" required>
+                    <span>简单尝试（1-2次）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q5" value="2" required>
+                    <span>多次使用</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q5" value="3" required>
+                    <span>深度依赖</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>6. 您用AI处理文档时，通常操作哪些功能？（多选）</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="q6" value="basic" required> 基础问答</label>
+                <label><input type="checkbox" name="q6" value="long" required> 长篇解析（＞50页）</label>
+                <label><input type="checkbox" name="q6" value="cross" required> 跨文档知识关联</label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>7. 您能独立用AI完成以下哪种复杂度任务？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q7" value="1" required>
+                    <span>单轮提问回答</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q7" value="2" required>
+                    <span>多轮对话定义问题</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q7" value="3" required>
+                    <span>跨工具协作完成任务链</span>
+                </label>
+            </div>
+        </div>
+    
+        <!-- 内容生成工具部分 -->
+        <style>
+            /* 矩阵题样式优化 */
+            .matrix-question {
+                background: #fff;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .matrix-table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0 10px;
+            }
+            .matrix-row {
+                display: flex;
+                align-items: center;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin-bottom: 12px;
+                padding: 12px 15px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                transition: all 0.3s ease;
+            }
+            .matrix-row:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            .matrix-label {
+                font-weight: 500;
+                color: #2d3748;
+                min-width: 60px;
+                margin-right: 20px;
+            }
+            .matrix-options {
+                display: flex;
+                flex: 1;
+                gap: 20px;
+                justify-content: space-around;
+            }
+            .matrix-option {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            @media (max-width: 768px) {
+                .matrix-row {
+                    padding: 10px;
+                }
+                .matrix-label {
+                    min-width: 50px;
+                    margin-right: 10px;
+                    font-size: 14px;
+                }                
+                .matrix-options {
+                    gap: 10px;
+                }
+                .matrix-option label {
+                    font-size: 13px;
+                }
+            }
+        </style>
+        
+        <!-- 问题8的HTML结构 -->
+        <div class="question matrix-question">
+            <p>8. 您使用AI生成以下类型内容的频率？</p>
+            <div class="matrix-table">
+                <div class="matrix-row">
+                    <div class="matrix-label">文本</div>
+                    <div class="matrix-options">
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_text_0" name="q8_text" value="0" required>
+                            <label for="q8_text_0">从不</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_text_1" name="q8_text" value="1">
+                            <label for="q8_text_1">偶尔</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_text_2" name="q8_text" value="2">
+                            <label for="q8_text_2">经常</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="matrix-row">
+                    <div class="matrix-label">图像</div>
+                    <div class="matrix-options">
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_image_0" name="q8_image" value="0" required>
+                            <label for="q8_image_0">从不</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_image_1" name="q8_image" value="1">
+                            <label for="q8_image_1">偶尔</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_image_2" name="q8_image" value="2">
+                            <label for="q8_image_2">经常</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="matrix-row">
+                    <div class="matrix-label">视频</div>
+                    <div class="matrix-options">
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_video_0" name="q8_video" value="0" required>
+                            <label for="q8_video_0">从不</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_video_1" name="q8_video" value="1">
+                            <label for="q8_video_1">偶尔</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_video_2" name="q8_video" value="2">
+                            <label for="q8_video_2">经常</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="matrix-row">
+                    <div class="matrix-label">音频</div>
+                    <div class="matrix-options">
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_audio_0" name="q8_audio" value="0" required>
+                            <label for="q8_audio_0">从不</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_audio_1" name="q8_audio" value="1">
+                            <label for="q8_audio_1">偶尔</label>
+                        </div>
+                        <div class="matrix-option">
+                            <input type="radio" id="q8_audio_2" name="q8_audio" value="2">
+                            <label for="q8_audio_2">经常</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 继续内容生成工具部分 -->
+        <div class="question">
+            <p>9. 您会对生成内容进行细节调整吗？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q9" value="1" required>
+                    <span>直接使用原始结果</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q9" value="2" required>
+                    <span>少量调整</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q9" value="3" required>
+                    <span>深度自定义设置</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>10. 您能否用AI工具完成跨模态创作？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q10" value="0" required>
+                    <span>从未尝试</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q10" value="1" required>
+                    <span>简单组合（文本+图像）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q10" value="2" required>
+                    <span>复杂联用（文本+视频+音频）</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>11. 您生成的内容主要用于哪种场景？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q11" value="1" required>
+                    <span>个人娱乐</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q11" value="2" required>
+                    <span>工作交付</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q11" value="3" required>
+                    <span>商业发布</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q11" value="4" required>
+                    <span>自媒体</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q11" value="5" required>
+                    <span>学术研究</span>
+                </label>
+            </div>
+        </div>
+    
+        <!-- Agent搭建工具部分 -->
+        <div class="question">
+            <p>12. 您是否搭建过自动化AI工作流？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q12" value="0" required>
+                    <span>从未尝试</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q12" value="1" required>
+                    <span>套用现有模板</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q12" value="2" required>
+                    <span>自定义组合工具链</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q12" value="3" required>
+                    <span>开发复杂自动化系统</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>13. 您使用过哪些类型的AI工作流？（多选）</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="q13" value="single" required> 单工具自动化</label>
+                <label><input type="checkbox" name="q13" value="multi" required> 多工具组合</label>
+                <label><input type="checkbox" name="q13" value="end2end" required> 端到端流程</label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>14. 您调整Agent逻辑的频次是？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q14" value="0" required>
+                    <span>无需调整</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q14" value="1" required>
+                    <span>每月1次</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q14" value="2" required>
+                    <span>每周1次</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q14" value="3" required>
+                    <span>实时迭代</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>15. 您使用Agent的主要障碍是？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q15" value="0" required>
+                    <span>技术门槛高</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q15" value="1" required>
+                    <span>场景适配难</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q15" value="2" required>
+                    <span>稳定性不足</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q15" value="3" required>
+                    <span>无需求</span>
+                </label>
+            </div>
+        </div>
+    
+        <!-- AI编程工具部分 -->
+        <div class="question">
+            <p>16. 您使用AI辅助编程的频率是？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q16" value="0" required>
+                    <span>从不</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q16" value="1" required>
+                    <span>调试时使用</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q16" value="2" required>
+                    <span>日常开发使用</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q16" value="3" required>
+                    <span>深度集成开发流程</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>17. 您最常利用AI实现哪些编程功能？（多选）</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="q17" value="complete" required> 代码补全</label>
+                <label><input type="checkbox" name="q17" value="debug" required> 漏洞检测</label>
+                <label><input type="checkbox" name="q17" value="convert" required> 自然语言转代码</label>
+                <label><input type="checkbox" name="q17" value="integrate" required> 跨系统集成</label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>18. 您是否将AI工具与其他开发平台结合使用？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q18" value="0" required>
+                    <span>从未尝试</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q18" value="1" required>
+                    <span>部分对接</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q18" value="2" required>
+                    <span>深度集成</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>19. AI生成的代码是否需要您二次修改？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q19" value="0" required>
+                    <span>完全依赖无需修改</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q19" value="1" required>
+                    <span>少量调整（＜30%）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q19" value="2" required>
+                    <span>大量重写（＞50%）</span>
+                </label>
+            </div>
+        </div>
+    
+        <!-- 效率工具 -->
+        <div class="question">
+            <p>20. 您用AI处理以下哪些场景？（多选）</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="q20" value="doc" required> 办公文档</label>
+                <label><input type="checkbox" name="q20" value="note" required> 学习笔记</label>
+                <label><input type="checkbox" name="q20" value="design" required> 平面设计</label>
+                <label><input type="checkbox" name="q20" value="data" required> 数据分析</label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>21. 您使用AI进行模板自动化生成的频率是？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q21" value="0" required>
+                    <span>从不</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q21" value="1" required>
+                    <span>偶尔（模板套用）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q21" value="2" required>
+                    <span>经常（定制生成）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q21" value="3" required>
+                    <span>深度定制化</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>22. 您是否用AI实现多模态信息整合？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q22" value="0" required>
+                    <span>从未尝试</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q22" value="1" required>
+                    <span>简单转换（单一形式）</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q22" value="2" required>
+                    <span>复杂整合（多形式交叉）</span>
+                </label>
+            </div>
+        </div>
+    
+        <div class="question">
+            <p>23. 您定制个性化工作流的能力如何？</p>
+            <div class="radio-group">
+                <label class="radio-button">
+                    <input type="radio" name="q23" value="0" required>
+                    <span>直接使用预设功能</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q23" value="1" required>
+                    <span>部分参数调整</span>
+                </label>
+                <label class="radio-button">
+                    <input type="radio" name="q23" value="2" required>
+                    <span>全链路自定义</span>
+                </label>
+            </div>
+        </div>
+    </div>       
+
+    <!-- 提交按钮 -->
+    <div class="section" style="text-align: center;">
+        <button type="button" onclick="submitSurvey()" class="submit-btn">提交测评</button>
+    </div>
+
+    <!-- 结果展示部分 -->
+    <div id="result" class="section" style="display: none;">
+        <h2>您的AI工具使用能力测评报告</h2>
+        <canvas id="radarChart" width="400" height="400"></canvas>
+        <div id="skillLevels"></div>
+    </div>
+
+    <!-- JavaScript逻辑 -->
+    <script>
+        const scoringRules = {
+            '交互能力': [
+                { q: 'q4', type: 'radio', options: [0, 1, 2, 3] },
+                { q: 'q5', type: 'radio', options: [0, 1, 2, 3] },
+                { q: 'q6', type: 'checkbox', values: { basic: 1, long: 2, cross: 3 } },
+                { q: 'q7', type: 'radio', options: [0, 1, 2, 3] }
+            ],
+            '内容生成': [
+                { q: 'q8', type: 'matrix', rows: ['text', 'image', 'video', 'audio'] },
+                { q: 'q9', type: 'radio', options: [1, 2, 3] },
+                { q: 'q10', type: 'radio', options: [0, 1, 2] },
+                { q: 'q11', type: 'radio', options: [1, 2, 3, 4] }
+            ],
+            '自动化能力': [
+                { q: 'q12', type: 'radio', options: [0, 1, 2, 3] },
+                { q: 'q13', type: 'checkbox', values: { single: 1, multi: 2, end2end: 3 } },
+                { q: 'q14', type: 'radio', options: [0, 1, 2, 3] },
+                { q: 'q15', type: 'radio', options: [0, 1, 2, 3] }
+            ],
+            '开发集成': [
+                { q: 'q16', type: 'radio', options: [0, 1, 2, 3] },
+                { q: 'q17', type: 'checkbox', values: { complete: 1, debug: 2, convert: 2, integrate: 3 } },
+                { q: 'q18', type: 'radio', options: [0, 1, 2] },
+                { q: 'q19', type: 'radio', options: [2, 1, 0] }
+            ],
+            '效率提升': [
+                { q: 'q20', type: 'checkbox', values: { doc: 1, note: 1, design: 2, data: 2 } },
+                { q: 'q21', type: 'radio', options: [0, 1, 2, 3] },
+                { q: 'q22', type: 'radio', options: [0, 1, 2] },
+                { q: 'q23', type: 'radio', options: [0, 1, 2] }
+            ]
+        };
+
+        const weightByProfession = {
+            student: { '交互能力': 1.2, '内容生成': 1.1, '自动化能力': 1.0, '开发集成': 0.9, '效率提升': 1.0 },
+            worker: { '交互能力': 1.0, '内容生成': 1.0, '自动化能力': 1.1, '开发集成': 1.0, '效率提升': 1.2 },
+            developer: { '交互能力': 0.9, '内容生成': 1.0, '自动化能力': 1.2, '开发集成': 1.3, '效率提升': 1.1 },
+            designer: { '交互能力': 1.0, '内容生成': 1.2, '自动化能力': 1.0, '开发集成': 0.9, '效率提升': 1.1 },
+            other: { '交互能力': 1.0, '内容生成': 1.0, '自动化能力': 1.0, '开发集成': 1.0, '效率提升': 1.0 }
+        };
+
+        function validateForm() {
+            let isValid = true;
+            let unfinishedQuestions = [];
+
+            // 检查单选题
+            const radioGroups = {};
+            document.querySelectorAll('input[type="radio"][required]').forEach(radio => {
+                radioGroups[radio.name] = true;
+            });
+            
+            for (let groupName in radioGroups) {
+                if (!document.querySelector(`input[name="${groupName}"]:checked`)) {
+                    const questionNumber = groupName.replace('q', '');
+                    unfinishedQuestions.push(questionNumber);
+                    isValid = false;
+                }
+            }
+
+            // 检查多选题（至少选择一项）
+            const checkboxGroups = ['q2', 'q6', 'q13', 'q17', 'q20'];
+            checkboxGroups.forEach(groupName => {
+                if (!document.querySelector(`input[name="${groupName}"]:checked`)) {
+                    unfinishedQuestions.push(groupName.replace('q', ''));
+                    isValid = false;
+                }
+            });
+
+            // 检查矩阵题
+            const matrixRows = ['text', 'image', 'video', 'audio'];
+            matrixRows.forEach(row => {
+                if (!document.querySelector(`input[name="q8_${row}"]:checked`)) {
+                    unfinishedQuestions.push('8');
+                    isValid = false;
+                }
+            });
+
+            // 检查开放题
+            const textArea = document.getElementById('q24');
+            if (textArea && textArea.required && !textArea.value.trim()) {
+                unfinishedQuestions.push('24');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                alert(`请完成以下题目：${[...new Set(unfinishedQuestions)].sort((a, b) => a - b).join(', ')}`);
+            }
+            
+            return isValid;
+        }
+
+        function calculateCategoryScore(category) {
+            let total = 0;
+            let maxPossible = 0;
+            
+            scoringRules[category].forEach(rule => {
+                if (rule.type === 'checkbox') {
+                    const checked = document.querySelectorAll(`input[name="${rule.q}"]:checked`);
+                    let questionTotal = 0;
+                    checked.forEach(item => {
+                        questionTotal += rule.values[item.value] || 0;
+                    });
+                    total += questionTotal;
+                    maxPossible += Object.values(rule.values).reduce((a, b) => a + b, 0);
+                } else if (rule.type === 'matrix') {
+                    rule.rows.forEach(row => {
+                        const selected = document.querySelector(`input[name="q8_${row}"]:checked`);
+                        const value = selected ? parseInt(selected.value) : 0;
+                        total += value;
+                        maxPossible += 2; // 矩阵题每行最高2分
+                    });
+                } else {
+                    const selected = document.querySelector(`input[name="${rule.q}"]:checked`);
+                    const value = selected ? parseInt(selected.value) : 0;
+                    total += rule.options[value] || 0;
+                    maxPossible += Math.max(...rule.options);
+                }
+            });
+            
+            return {
+                actual: total,
+                max: maxPossible,
+                percentage: Math.round((total / maxPossible) * 100)
+            };
+        }
+
+        function submitSurvey() {
+            // 验证必填项
+            if (!validateForm()) {
+                return;
+            }
+        
+            // 计算各维度得分
+            const scores = {};
+            Object.keys(scoringRules).forEach(category => {
+                scores[category] = calculateCategoryScore(category);
+            });
+        
+            // 获取职业选择（修正获取方式）
+            const profession = document.querySelector('input[name="q1"]:checked')?.value || 'other';
+        
+            // 应用职业权重
+            if (weightByProfession[profession]) {
+                Object.keys(scores).forEach(category => {
+                    if (weightByProfession[profession][category]) {
+                        scores[category].percentage *= weightByProfession[profession][category];
+                        scores[category].percentage = Math.min(100, Math.round(scores[category].percentage));
+                    }
+                });
+            }
+        
+            // 展示结果
+            displayResults(scores);
+        }
+
+        function displayResults(scores) {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            const result = document.getElementById('result');
+            
+            // 显示结果区域
+            result.style.display = 'block';
+            
+            // 清除旧的内容
+            while (result.children.length > 1) {
+                result.removeChild(result.lastChild);
+            }
+            
+            // 创建雷达图
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.keys(scores),
+                    datasets: [{
+                        label: 'AI工具使用能力',
+                        data: Object.values(scores).map(score => score.percentage),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+    
+        // 添加能力等级判定标准
+        const levelDefinitions = {
+            '交互能力': [
+                { threshold: 30, label: '初学探索者' },
+                { threshold: 60, label: '基础应用者' },
+                { threshold: 80, label: '熟练使用者' },
+                { threshold: 100, label: '深度专家' }
+            ],
+            '内容生成': [
+                { threshold: 30, label: '内容新手' },
+                { threshold: 60, label: '创作实践者' },
+                { threshold: 80, label: '内容专家' },
+                { threshold: 100, label: '创意大师' }
+            ],
+            '自动化能力': [
+                { threshold: 30, label: '流程学习者' },
+                { threshold: 60, label: '自动化实践者' },
+                { threshold: 80, label: '工作流专家' },
+                { threshold: 100, label: '自动化架构师' }
+            ],
+            '开发集成': [
+                { threshold: 30, label: '代码探索者' },
+                { threshold: 60, label: '开发实践者' },
+                { threshold: 80, label: 'AI开发专家' },
+                { threshold: 100, label: '集成架构师' }
+            ],
+            '效率提升': [
+                { threshold: 30, label: '效率学习者' },
+                { threshold: 60, label: '效能实践者' },
+                { threshold: 80, label: '效率专家' },
+                { threshold: 100, label: '效能优化师' }
+            ]
+        };
+
+        function getSkillLevel(category, score) {
+            const levels = levelDefinitions[category];
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (score >= levels[i].threshold) {
+                    return levels[i].label;
+                }
+            }
+            return levels[0].label;
+        }
+
+        function displayResults(scores) {
+            const result = document.getElementById('result');
+            const skillLevels = document.getElementById('skillLevels');
+            
+            // 显示结果区域
+            result.style.display = 'block';
+            
+            // 清除旧的内容
+            skillLevels.innerHTML = '';
+            
+            // 添加能力等级评估
+            Object.entries(scores).forEach(([category, score]) => {
+                const level = getSkillLevel(category, score.percentage);
+                const levelDiv = document.createElement('div');
+                levelDiv.innerHTML = `<p>${category}: ${score.percentage}% - ${level}</p>`;
+                skillLevels.appendChild(levelDiv);
+            });
+            
+            // 创建雷达图
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+            window.myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.keys(scores),
+                    datasets: [{
+                        label: 'AI工具使用能力',
+                        data: Object.values(scores).map(score => score.percentage),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // 删除重复的代码块，只保留一份
+    </script>
+</body>
+</html>
+
+<style>
+    /* 修改单选和多选按钮组的样式 */
+    .radio-group, .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .radio-button, .checkbox-group label {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 15px;
+        margin: 0;
+        border-radius: 8px;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .radio-button input[type="radio"],
+    .checkbox-group input[type="checkbox"] {
+        margin: 0;
+    }
+
+    .radio-button span {
+        flex: 1;
+        line-height: 1.4;
+    }
+
+    /* 移动端优化 */
+    @media (max-width: 768px) {
+        .radio-button, .checkbox-group label {
+            padding: 15px;
+            font-size: 14px;
+        }
+    }
+</style>
+<style>
+    .submit-btn {
+        background: linear-gradient(135deg, #4a5ab9 0%, #5b67c7 100%);
+        color: white;
+        border: none;
+        padding: 20px 60px;
+        font-size: 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(91, 103, 199, 0.3);
+        font-weight: 600;
+        margin: 30px auto;
+        display: block;
+        width: auto;
+        min-width: 200px;
+    }
+    
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(91, 103, 199, 0.4);
+        background: linear-gradient(135deg, #5b67c7 0%, #4a5ab9 100%);
+    }
+    
+    .submit-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(91, 103, 199, 0.3);
+    }
+</style>
